@@ -1,0 +1,10 @@
+html{background-color:gray;}
+body{width:60vw;min-height:100vh;margin:auto;background-color:white;box-shadow:0 0 8px black}
+header{padding:1em}
+nav {border-top:1px dashed gray; border-bottom:1px dashed gray;}
+nav a, nav a:visited {display:inline-block;padding:1em;color:blue;}
+main{padding:1em;}
+main p {text-indent:2em;text-align:justify;}
+main pre {padding:1em;background-color:lightgray}
+footer{border-top:1px dashed gray;padding:1em;text-align:center;}
+

@@ -1,0 +1,12 @@
+# Rewrite engine
+RewriteEngine on
+AcceptPathInfo On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1
+
+# forbid access to ini files
+<FilesMatch "config\.php">
+    require all denied
+</FilesMatch>

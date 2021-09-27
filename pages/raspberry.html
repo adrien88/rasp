@@ -1,0 +1,63 @@
+<h2>Raspberry</h2>
+
+<h3>Réseau</h3>
+<p>Cette page est stockée sur mon raspberry pi. Pour la voir, votre application sur votre terminal, a envoyé une requête 
+http:// qui a traversé tout le web, été redirigé par les serveurs d'OVH, puis par la box pour arriver sur le serveur 
+web apache de mon raspberry pi. Celui ci à émit une réponse, cette page, qui elle, a fait le chemin inverse jusqu'à vous. <p>
+<pre>
+ |          | ---> {           } ---> requête ---> |      | ---> |	       |
+ | Terminal |      { web (OVH) }                   | BBox |      | RaspberryPi |
+ |          | <--- {           } <--- réponse <--- |      | <--- |   	       |
+</pre>
+
+	<p>Je chiffrerai la connexion plus tard, pour l'intant, en clair, c'est pas trop gênant.</p>
+	<p>Ensuite, je développerai une application perso là dessus.</p>
+
+<h3>Specs de base</h3>
+
+CPU 
+<pre>
+model name      : ARMv6-compatible processor rev 7 (v6l)
+Hardware        : BCM2835
+Model           : Raspberry Pi Model B Rev 2
+</pre>
+
+RAM
+<pre>
+              total        used        free      shared  buff/cache   available
+Mem:          430Mi        45Mi       122Mi       5.0Mi       262Mi       326Mi
+Swap:          99Mi          0B        99Mi
+</pre>
+
+HDD
+<pre>
+NAME        FSTYPE LABEL  UUID                                 FSAVAIL FSUSE% MOUNTPOINT
+mmcblk0                                                                       
+├─mmcblk0p1 vfat   boot   5DE4-665C                               204M    19% /boot
+└─mmcblk0p2 ext4   rootfs 7295bbc3-bbc2-4267-9fa0-099e10ef5bf0   12.5G     9% /
+</pre>
+
+
+<h3>Config</h3>
+
+OS
+<pre>
+Description:    Raspbian GNU/Linux 10 (buster)
+Release:        10
+</pre>
+
+Web server
+<pre>
+apache2:
+  Installed: 2.4.38-3+deb10u5
+
+php:
+  Installed: 2:7.3+69
+
+mariadb-server:
+  Installed: (none)
+  Candidate: 1:10.3.29-0+deb10u1
+
+</pre>
+
+
