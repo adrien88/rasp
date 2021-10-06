@@ -4,16 +4,30 @@ namespace Frame;
 
 class Render
 {
-    function __construct(array $values)
+    private array $route;
+    static array $config = [];
+
+    /**
+     * Construct
+     */
+    function __construct(string $path, array $values)
     {
-        var_dump(ROUTE);
+        foreach ($values as $key => $value)
+            $this->$key = $value;
+        $this->route = explode('/', ROUTE);
+        array_shift($this->route);
+        $this->buildPath($path);
     }
 
-    function builder(string $path)
+    /**
+     * Rendering
+     */
+    function buildPath(string $path)
     {
         $cwd = getcwd();
-        chdir(dirname($path));
-        foreach (glob('./*') as $file) {
+        chdir($path);
+        if (file_exists('index.php')) {
+            include 'index.php';
         }
         chdir($cwd);
     }

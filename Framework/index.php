@@ -3,19 +3,16 @@
 namespace Frame;
 
 ini_set('display_errors', '1');
-define('config', include 'App/config.php');
+
+define('CONFIG', include 'App/config.php');
+define('ROUTE', $_SERVER['PATH_INFO'] ?? '/');
 
 include "AutoloaderPSR4.php";
-AutoloaderPSR4::$config = config['Autoloader'];
-AutoloaderPSR4::auto();
+AutoloaderPSR4::$config = CONFIG['Autoloader'];
+new AutoloaderPSR4;
 
-PDOHandler::getInstance('MYAPP', config['DB']);
+Router::$config = CONFIG['Router'];
+new Router();
 
-header('Cache-Control: no-cache', true);
-
-
-// unset($conf);
-// var_dump(new Config('Framework/cache/test_Config.php'));
-
-Router::$config = config['Router'];
-Router::route();
+// PDOHandler::getInstance('MYAPP', config['DB']);
+// header('Cache-Control: no-cache', true);;

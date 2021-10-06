@@ -2,11 +2,13 @@
 
 namespace Frame;
 
-
 class PDOHandler
 {
 	static $PDO = [];
 
+	/**
+	 * 
+	 */
 	static function getInstance(string $name, array $config = [])
 	{
 		if (!isset(self::$PDO[$name]))
@@ -14,6 +16,9 @@ class PDOHandler
 		return self::$PDO[$name];
 	}
 
+	/**
+	 * 
+	 */
 	static function listInstance()
 	{
 		return array_keys(self::$PDO);
