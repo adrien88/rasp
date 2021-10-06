@@ -2,63 +2,61 @@
 
 namespace Frame;
 
+use stdClass;
+
 class Router
 {
+    static $config = [
+        'namespace' => 'App\controllers\\',
+        'default' => [
+            'controller' => 'Pages',
+            'method' => 'default',
+        ]
+    ];
 
-    // 'Router' => [
-    // 	'homepage' => "/Page/home.html",
-    // 	'controllers' => "App\\controllers\\",
-    // 	'API' => [
-    // 		'status' => 'open',
-    // 		'slug' => 'api',
-    // 		'JSRouting' => 'App/src/assets/html/JSRouting.html'
-    // 	],
-    // ],
-    static $config;
+    private array $route;
 
     /**
-     * 
+     * Get route
      */
-    static function route()
+    function __get($name)
     {
-        if ((!isset($_SERVER['PATH_INFO']) || '/' == $_SERVER['PATH_INFO']))
-            $route = self::$config['homepage'];
-        else
-            $route =  $_SERVER['PATH_INFO'];
-        $route = explode('/', substr($route, 1));
-        new self($route);
+        if (isset($this->$name))
+            return $this->$name;
     }
 
     /**
-     *  
+     * Automatic routing
      */
-    function __construct(array $route)
+    function __construct()
     {
-        if ('open' == self::$config['API']['status']) {
-            if (null != self::$config['API']['JSRouting'] && self::$config['API']['slug'] != $route[0]) {
-                header('Content-Type: text/html');
-                echo file_get_contents(self::$config['API']['JSRouting']);
-                exit;
-            } else if (self::$config['API']['slug'] == $route[0]) {
-                Response::$headers['Content-Type'] = 'application/json; charset=utf-8';
-                array_shift($route);
-            }
+        $this->route = explode('/', ROUTE);
+        array_shift($this->route);
+        $this->apiRoutage();
+        $this->routage();
+    }
+
+    /**
+     * Api Routage
+     */
+    function apiRoutage()
+    {
+        if ('api' === $this->route[0]) {
+            Response::$headers = ['Content-Type' => 'application/json;charset=utf-8'];
+            array_shift($this->route);
         }
-        self::routage($route);
     }
 
     /**
-     * 
+     * Main routage
      */
-    static function routage(&$route)
+    function routage()
     {
-        $class = self::$config['controllers'] . ($route[0] ?? '');
-        $method = ($route[1] ?? '');
-        if (class_exists($class, true)) {
-            if (!method_exists($class, $method))
-                $class::default($route);
-            else
-                $class::$method($route);
-        } else Response::sendError();
+        $called = self::$config['namespace'] . $this->route[0];
+        $default = self::$config['namespace'] . self::$config['default']['controller'];
+        $controller = class_exists($called, true) ? $called : $default;
+        $method = ($route[1] ?? self::$config['default']['method']);
+        if (method_exists($controller, $method))
+            $controller::$method($this->route);
     }
 }
