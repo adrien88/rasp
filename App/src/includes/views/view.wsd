@@ -1,0 +1,27 @@
+@startuml
+title templating logic
+
+  legend
+  Tempalting 
+  endlegend
+
+  rectangle Model [
+    Structure  
+    |_ **condition**
+      |_ model1
+      |_ model2
+      |_ **sub-condition**
+        |_ ...
+      |_ default (as index.php)
+  ]
+
+  rectangle Exemple [
+    Exemple  
+    |_ **Page**
+      |_ **read**
+        |_ article.php 
+        |_ index.php 
+  ]
+
+
+@enduml
