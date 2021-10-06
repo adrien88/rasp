@@ -1,22 +1,13 @@
 <?php
 
-namespace APP\controllers;
+namespace App\controllers;
 
-use APP\models\Pages as modelsPages;
+use Frame\Render;
 
-/**
- * APP = "includes/"
- */
 class Pages
 {
-	static function default($page)
-	{
-		self::read($page);
-	}
-
-	static function read($page)
-	{
-		# $model = new modelsPages();
-		var_dump($page);
-	}
+    static function default()
+    {
+        new Render('App/src/includes/views', ['title' => 'MaPage']);
+    }
 }
